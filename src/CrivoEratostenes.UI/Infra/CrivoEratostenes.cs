@@ -9,7 +9,7 @@ namespace CrivoEratostenes.UI.Infra
     {
         protected readonly int Limite;
         protected readonly List<int> Valores;
-
+        
         public CrivoEratostenes(int limite)
         {
             Limite = limite;
@@ -36,7 +36,10 @@ namespace CrivoEratostenes.UI.Infra
 
         protected virtual void Remove(int i)
         {
-            Valores.RemoveAll(c => c % i == 0 && c != i);
+            lock (this)
+            {
+                Valores.RemoveAll(c => c%i == 0 && c != i);
+            }
         }
     }
 }
